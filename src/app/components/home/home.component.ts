@@ -33,7 +33,7 @@ export class HomeComponent implements OnInit {
       },
       error => {
         console.error(error);
-        this.msgService.add({
+        this.msgService.add({ 
           severity: 'error',
           summary: 'Error',
           detail: 'Ocurrió un error al cerrar sesión. Consulta la consola para más detalles.',
