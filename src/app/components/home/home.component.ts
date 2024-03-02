@@ -19,7 +19,12 @@ export class HomeComponent implements OnInit {
     private msgService: MessageService
   ) { }
 
+  ngOnInit(): void {
+    this.username = localStorage.getItem('username') ?? '';
+  }
+  loading: boolean = false; // Variable para controlar la animación de carga
   logOut() {
+    this.loading = true; 
     this.authService.logoutUser().subscribe(
       response => {
         if (response && response.detail && response.detail.includes('No se encontró el token')) {
@@ -39,10 +44,10 @@ export class HomeComponent implements OnInit {
           detail: 'Ocurrió un error al cerrar sesión. Consulta la consola para más detalles.',
         });
       }
-    );
+    ).add(() => {
+      this.loading = false; // Finalizar la animación de carga
+    });
   }
     
-  ngOnInit(): void {
-    this.username = localStorage.getItem('username') ?? '';
-  }
+
 }

@@ -1,0 +1,32 @@
+/* Estilos personalizados */
+.navbar {
+    background: linear-gradient(to right, #0769ca, #E5E5BE); /* Gradiente de color de fondo */
+}
+
+.jumbotron {
+    background-image: url('https://e0.pxfuel.com/wallpapers/766/394/desktop-wallpaper-easypromos-linkedin-for-your.jpg');
+    background-size: cover;
+    background-position: center;
+    color: #fff;
+    padding: 100px 0; /* Aumenta el espacio interno */
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Sombra al texto */
+}
+
+.jumbotron h1 {
+    font-size: 3.5rem; /* Aumenta el tamaño del título */
+}
+
+.jumbotron p {
+    font-size: 1.25rem; /* Aumenta el tamaño del texto */
+}
+
+.personas-section {
+    background-color: #287dd357;
+    padding: 50px 0;
+    border-top: 1px solid #fff; /* Borde superior */
+    border-bottom: 1px solid #fff; /* Borde inferior */
+}
+
+.logout-link {
+    cursor: pointer; /* Cambia el cursor al hacer hover para indicar que es un enlace */
+}

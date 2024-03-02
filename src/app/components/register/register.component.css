@@ -1,0 +1,7 @@
+/*@import "primeicons/primeicons.css"; */
+@import "~primeng/resources/themes/bootstrap4-dark-blue/theme.css";
+html,
+body {
+  height: 100%;
+  margin: 0;
+}

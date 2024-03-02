@@ -1,3 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
 
-<p>Bienvenido, {{ username }}!</p>
-<p-button label="Sign out" (onClick)="logOut()"></p-button>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inicio</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- Estilos personalizados -->
+</head>
+
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light">
+        <a class="navbar-brand" href="#">Tu Aplicación</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="#">Inicio <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" routerLink="/myprofile">Mi Perfil</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link logout-link" (click)="logOut()">Cerrar Sesión</a>
+                </li>
+                <!-- Agrega más elementos de menú según sea necesario -->
+            </ul>
+        </div>
+    </nav>
+    
+
+    <!-- Jumbotron -->
+    <div class="jumbotron text-center">
+        <h1 class="display-4">¡Bienvenido a Tu Aplicación!</h1>
+        <p class="lead">Hola, {{ username }}!</p>
+        <hr class="my-4">
+        <!-- Agrega un botón de llamada a la acción si es necesario -->
+    </div>
+
+    <!-- Sección de profesionales -->
+    <div class="container personas-section">
+        <h2 class="text-center mb-4">Profesionales disponibles</h2>
+
+    </div>
+
+
+    <!-- Scripts -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+
+</body>
+
+</html>
