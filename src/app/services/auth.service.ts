@@ -3,7 +3,9 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { User } from '../interfaces/auth';
 import { Observable, of, throwError } from 'rxjs';
-import { tap } from 'rxjs/operators';
+import { tap, catchError, finalize } from 'rxjs/operators';
+import { BehaviorSubject} from 'rxjs';
+import { LoadingService } from './loading.service';
 
 
 @Injectable({
@@ -13,10 +15,13 @@ export class AuthService {
 
   private baseUrl = 'https://xf0hbthg-3000.brs.devtunnels.ms';
 
-
-  constructor(private http: HttpClient) { }
+  constructor(
+    private http: HttpClient,
+    private loadingService: LoadingService
+  ) { }
 
   loginUser(credentials: { username: string, password: string }): Observable<any> {
+    this.loadingService.setLoading(true); // Activar animación de carga
     let headers = new HttpHeaders();
     headers = headers.set('Content-Type', 'application/json');
     console.log('Datos a enviar:', credentials);
@@ -33,15 +38,18 @@ export class AuthService {
           } else {
             throw throwError("Something went wrong");
           }
-        })
-      );
+        }),
+      finalize(() => {
+        this.loadingService.setLoading(false); // Desactivar animación de carga
+      })
+    );
   }
   logoutUser(): Observable<any> {
     const token = localStorage.getItem('Token');
+    this.loadingService.setLoading(true);
   
     // Verifica si el token existe en el Local Storage
     if (!token) {
-      console.error('No se encontró el token en el Local Storage.');
       return of({ detail: 'No se encontró el token en el Local Storage.' }); // Retorna una respuesta observable indicando la ausencia de token
     }
   
@@ -50,14 +58,24 @@ export class AuthService {
   
     console.log('Token a enviar:', token);
   
-    return this.http.post<any>(`${this.baseUrl}/logout/`, null, { headers: headers });
+    return this.http.post<any>(`${this.baseUrl}/logout/`, null, { headers: headers }).pipe(
+      finalize(() => {
+        this.loadingService.setLoading(false); // Desactivar animación de carga
+      })
+    );
   }
 
   registerUser(userDetails: User): Observable<any> {
     let headers = new HttpHeaders();
     headers = headers.set('Content-Type', 'application/json');
+    this.loadingService.setLoading(true); // Activar animación de carga
     console.log('Datos a enviar:', JSON.stringify(userDetails));
-    return this.http.post(`${this.baseUrl}/api/v1/users/`,JSON.stringify(userDetails), { headers: headers });
+    
+    return this.http.post(`${this.baseUrl}/api/v1/users/`, JSON.stringify(userDetails), { headers: headers }).pipe(
+      finalize(() => {
+        this.loadingService.setLoading(false); // Desactivar animación de carga
+      })
+    );
   }
 
   getUserByEmail(email: string): Observable<User[]> {
