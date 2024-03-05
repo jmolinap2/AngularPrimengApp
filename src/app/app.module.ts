@@ -15,6 +15,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { ToastModule } from 'primeng/toast';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MessageService } from 'primeng/api';
+import { NewprofessionalComponent } from './components/newprofessional/newprofessional.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { MessageService } from 'primeng/api';
     LoginComponent,
     RegisterComponent,
     HomeComponent,
-    MyprofileComponent
+    MyprofileComponent,
+    NewprofessionalComponent
   ],
   imports: [
     BrowserModule,
