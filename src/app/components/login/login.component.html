@@ -1,8 +1,10 @@
 <!-- login.component.html -->
+<div class="flex justify-content-center align-items-center h-full">
+  <!-- Contenido del componente de inicio de sesión -->
 <form [formGroup]="loginForm" (ngSubmit)="loginUser()">
   <p-card header="Login" [style]="{ width: '360px' }">
     <div class="field">
-      <label for="username">username</label>
+      <label for="username">Username</label>
       <input
         type="text"
         pInputText
@@ -45,3 +47,4 @@
     <div class="mt-2">Not a member? <a routerLink="/register">Register</a></div>
   </p-card>
 </form>
+</div>

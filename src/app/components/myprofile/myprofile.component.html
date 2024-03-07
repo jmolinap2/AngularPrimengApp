@@ -1,1 +1,35 @@
-<p>myprofile works!</p>
+<div class="container mt-5">
+    <div class="row justify-content-center">
+      <div class="col-md-8">
+        <div class="card">
+          <div class="card-header">
+            <h4 class="mb-0">Mi Perfil</h4>
+          </div>
+          <div class="card-body">
+            <div class="row">
+              <div class="col-md-4">
+                <img *ngIf="user" [src]="user.image" alt="Imagen de perfil" class="img-fluid rounded-circle">
+              </div>
+              <div class="col-md-8">
+                <h5>{{ user.username }}</h5>
+                <p>{{ user.email }}</p>
+                <p>Nombre: {{ user.first_name || 'No especificado' }}</p>
+                <p>Apellido: {{ user.last_name || 'No especificado' }}</p>
+                <p>Número de Celular: {{ user.numero_celular || 'No especificado' }}</p>
+                <p>Edad: {{ user.age || 'No especificada' }}</p>
+                <p>Descripción: {{ user.descripcion || 'Sin descripción' }}</p>
+                <p>Último inicio de sesión: {{ user.last_login | date }}</p>
+                <!-- Agrega más campos de información según sea necesario -->
+              </div>
+            </div>
+            <hr>
+            <div class="text-center">
+              <button class="btn btn-primary" (click)="editProfile()">Editar Perfil</button>
+              <button class="btn btn-danger" (click)="deleteAccount()">Eliminar Cuenta</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  

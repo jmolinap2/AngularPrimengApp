@@ -32,7 +32,7 @@ export class AuthService {
           if (response && response.user && response.user.token) {
             localStorage.setItem('Token', response.user.token);
             localStorage.setItem('username', credentials.username);
-            localStorage.setItem('user', response.user);
+            localStorage.setItem('user', JSON.stringify(response.user));
           } else if (response && response.detail === "Credenciales inválidas.") {
             throw throwError("Credenciales inválidas");
           } else {

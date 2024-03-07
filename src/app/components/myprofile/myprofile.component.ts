@@ -19,6 +19,24 @@ export class MyprofileComponent implements OnInit {
     private msgService: MessageService
   ) { }
   ngOnInit(): void {
-    
+
+    const userString = localStorage.getItem('user');
+    if (userString) {
+        const user = JSON.parse(userString);
+        if (user && user.image) {
+            user.image = 'https://xf0hbthg-3000.brs.devtunnels.ms' + user.image;
+        }else{
+          user.image = 'https://example.com/default-profile-image.jpg';
+        }
+        this.user = user;
+    }
+  }
+
+  editProfile() {
+    // Implementa la funcionalidad para editar el perfil aquí
+  }
+
+  deleteAccount() {
+    // Implementa la funcionalidad para eliminar la cuenta aquí
   }
 }

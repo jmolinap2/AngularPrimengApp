@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
 import { AuthService } from 'src/app/services/auth.service';
 import { FormBuilder, Validators } from '@angular/forms';
+import { HttpClient } from '@angular/common/http';
 
 //src\app\components\home\home.component.ts
 @Component({
@@ -11,17 +12,49 @@ import { FormBuilder, Validators } from '@angular/forms';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-  username: string = ''; // Variable para almacenar el nombre de usuario
+  username: string = ''; 
+  profesionales: any[] = [];
+  user: any;
   constructor(
     private fb: FormBuilder,
     private authService: AuthService,
     private router: Router,
-    private msgService: MessageService
+    private msgService: MessageService,
+    private http: HttpClient
+    
   ) { }
   
   ngOnInit(): void {
+    debugger
     this.username = localStorage.getItem('username') ?? '';
+
+    const userString = localStorage.getItem('user');
+if (userString) {
+    const user = JSON.parse(userString);
+    if (user && user.image) {
+        user.image = 'https://xf0hbthg-3000.brs.devtunnels.ms' + user.image;
+    }else{
+      user.image = 'https://example.com/default-profile-image.jpg';
+    }
+    this.user = user;
+}
+
+
+    console.log('Datos: ', JSON.stringify(this.user))
+    this.getProfesionales();
   }
+  getProfesionales() {
+    this.http.get<any[]>('https://xf0hbthg-3000.brs.devtunnels.ms/api/v1/profesionales/')
+      .subscribe(
+        data => {
+          this.profesionales = data;
+        },
+        error => {
+          console.log('Error al obtener los profesionales:', error);
+        }
+      );
+  }
+
   logOut() {
     this.authService.logoutUser().subscribe(
       response => {

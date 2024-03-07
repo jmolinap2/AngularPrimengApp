@@ -1,4 +1,6 @@
 <!-- register.component.html -->
+<div class="flex justify-content-center align-items-center h-full">
+
 <form [formGroup]="registerForm" (ngSubmit)="submitDetails()">
   <p-card header="Register" [style]="{ width: '360px' }">
     <div class="field">
@@ -91,3 +93,4 @@
     <div class="mt-2">Already a member? <a routerLink="/login">Login</a></div>
   </p-card>
 </form>
+</div>

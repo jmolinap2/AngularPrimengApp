@@ -30,3 +30,7 @@
 .logout-link {
     cursor: pointer; /* Cambia el cursor al hacer hover para indicar que es un enlace */
 }
+.profile-image {
+    width: 1.5rem; /* ajusta este valor según sea necesario */
+    height: auto; /* para mantener la proporción de la imagen */
+}
