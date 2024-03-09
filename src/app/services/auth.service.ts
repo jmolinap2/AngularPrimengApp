@@ -28,7 +28,7 @@ export class AuthService {
     return this.http.post<any>(`${this.baseUrl}/login/`, credentials).pipe(
       tap((response) => {
           debugger
-          console.log('Datos recibidos:', JSON.stringify(response));
+          console.log('Datos recibidos del login:', JSON.stringify(response));
           if (response && response.user && response.user.token) {
             localStorage.setItem('Token', response.user.token);
             localStorage.setItem('username', credentials.username);

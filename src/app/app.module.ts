@@ -17,6 +17,17 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MessageService } from 'primeng/api';
 import { NewprofessionalComponent } from './components/newprofessional/newprofessional.component';
 
+import {PanelModule} from 'primeng/panel';
+import { DialogModule } from 'primeng/dialog';
+import { MenubarModule } from 'primeng/menubar';
+import {ConfirmDialogModule} from 'primeng/confirmdialog';
+import {ConfirmationService} from 'primeng/api'
+import { FormsModule } from '@angular/forms';
+import { CalendarModule } from 'primeng/calendar';
+import { DropdownModule } from 'primeng/dropdown';
+import { CommonModule, DatePipe } from '@angular/common'; // Importa DatePipe aquí
+import { SelectButtonModule } from 'primeng/selectbutton';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -27,17 +38,31 @@ import { NewprofessionalComponent } from './components/newprofessional/newprofes
     NewprofessionalComponent
   ],
   imports: [
+    SelectButtonModule,
+    CommonModule,
     BrowserModule,
     AppRoutingModule,
     CardModule,
-    InputTextModule,
     ReactiveFormsModule,
     ButtonModule,
     HttpClientModule,
     ToastModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    PanelModule,
+    DialogModule,
+    MenubarModule,
+    ConfirmDialogModule,
+    InputTextModule,
+    ToastModule,
+    FormsModule,
+    CalendarModule,
+    DropdownModule,
   ],
-  providers: [MessageService],
+  providers: [
+    DatePipe,
+    MessageService,
+    ConfirmationService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

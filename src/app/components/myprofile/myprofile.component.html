@@ -1,11 +1,13 @@
 <div class="container mt-5">
-    <div class="row justify-content-center">
-      <div class="col-md-8">
-        <div class="card">
-          <div class="card-header">
-            <h4 class="mb-0">Mi Perfil</h4>
-          </div>
-          <div class="card-body">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="card">
+        <div class="card-header">
+          <h4 class="mb-0">Mi Perfil</h4>
+        </div>
+        <div class="card-body">
+          <!-- Mostrar información del perfil -->
+          <div >
             <div class="row">
               <div class="col-md-4">
                 <img *ngIf="user" [src]="user.image" alt="Imagen de perfil" class="img-fluid rounded-circle">
@@ -19,17 +21,52 @@
                 <p>Edad: {{ user.age || 'No especificada' }}</p>
                 <p>Descripción: {{ user.descripcion || 'Sin descripción' }}</p>
                 <p>Último inicio de sesión: {{ user.last_login | date }}</p>
-                <!-- Agrega más campos de información según sea necesario -->
               </div>
             </div>
             <hr>
             <div class="text-center">
-              <button class="btn btn-primary" (click)="editProfile()">Editar Perfil</button>
+              <button class="btn btn-primary" (click)="startEditingProfile()">Editar Perfil</button>
               <button class="btn btn-danger" (click)="deleteAccount()">Eliminar Cuenta</button>
             </div>
           </div>
+          <!-- Formulario de edición del perfil -->
+          <p-dialog header="Editar Perfil" [responsive]="true" [style]="{width: '500px', height: '600px'}"
+            [(visible)]="editingProfile" [modal]="true">
+            <form [formGroup]="editProfileForm" (ngSubmit)="saveProfileChanges()">
+              <div class="form-group">
+                <label for="username">Nombre de usuario</label>
+                <input type="text" formControlName="username" id="username" class="form-control">
+              </div>
+              <div class="form-group">
+                <label for="email">Correo electrónico</label>
+                <input type="email" formControlName="email" id="email" class="form-control">
+              </div>
+              <div class="form-group">
+                <label for="first_name">Nombre</label>
+                <input type="text" formControlName="first_name" id="first_name" class="form-control">
+              </div>
+              <div class="form-group">
+                <label for="last_name">Apellido</label>
+                <input type="text" formControlName="last_name" id="last_name" class="form-control">
+              </div>
+              <div class="form-group">
+                <label for="image">URL de la imagen de perfil</label>
+                <input type="text" formControlName="image" id="image" class="form-control">
+              </div>
+              <div class="form-group">
+                <label for="numero_celular">Número de celular</label>
+                <input type="text" formControlName="numero_celular" id="numero_celular" class="form-control">
+              </div>
+              <button type="submit" class="btn btn-success">Guardar Cambios</button>
+            </form>
+            <!-- Botón para cancelar la edición -->
+            <div class="text-center mt-3">
+              <button class="btn btn-secondary" (click)="cancelEditingProfile()">Cancelar</button>
+            </div>
+
+          </p-dialog>
         </div>
       </div>
     </div>
   </div>
-  
+</div>

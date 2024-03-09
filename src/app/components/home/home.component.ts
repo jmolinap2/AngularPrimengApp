@@ -9,10 +9,10 @@ import { HttpClient } from '@angular/common/http';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css']
+  styleUrls: ['./home.component.css'],
 })
 export class HomeComponent implements OnInit {
-  username: string = ''; 
+  username: string = '';
   profesionales: any[] = [];
   user: any;
   constructor(
@@ -21,35 +21,46 @@ export class HomeComponent implements OnInit {
     private router: Router,
     private msgService: MessageService,
     private http: HttpClient
-    
-  ) { }
-  
+  ) {}
+
   ngOnInit(): void {
-    debugger
-    this.username = localStorage.getItem('username') ?? '';
+this.username = localStorage.getItem('username') ?? '';
 
     const userString = localStorage.getItem('user');
-if (userString) {
-    const user = JSON.parse(userString);
-    if (user && user.image) {
+    if (userString) {
+      const user = JSON.parse(userString);
+      if (user && user.image) {
         user.image = 'https://xf0hbthg-3000.brs.devtunnels.ms' + user.image;
-    }else{
-      user.image = 'https://example.com/default-profile-image.jpg';
+      } else {
+        user.image = 'https://example.com/default-profile-image.jpg';
+      }
+      this.user = user;
     }
-    this.user = user;
-}
 
-
-    console.log('Datos: ', JSON.stringify(this.user))
     this.getProfesionales();
   }
   getProfesionales() {
-    this.http.get<any[]>('https://xf0hbthg-3000.brs.devtunnels.ms/api/v1/profesionales/')
+    this.http
+      .get<any[]>(
+        'https://xf0hbthg-3000.brs.devtunnels.ms/api/v1/profesionales/'
+      )
       .subscribe(
-        data => {
+        (data) => {
           this.profesionales = data;
+          debugger;
+          // Itera sobre los datos y modifica las URLs de las imágenes si es necesario
+          this.profesionales.forEach((profesional) => {
+            if (profesional.user_image) {
+              profesional.user_image = profesional.user_image.replace(
+                'http://localhost:3000',
+                'https://xf0hbthg-3000.brs.devtunnels.ms'
+              );
+              
+              console.log('profesional.image: ', profesional.image);
+            }
+          });
         },
-        error => {
+        (error) => {
           console.log('Error al obtener los profesionales:', error);
         }
       );
@@ -57,8 +68,12 @@ if (userString) {
 
   logOut() {
     this.authService.logoutUser().subscribe(
-      response => {
-        if (response && response.detail && response.detail.includes('No se encontró el token')) {
+      (response) => {
+        if (
+          response &&
+          response.detail &&
+          response.detail.includes('No se encontró el token')
+        ) {
           console.error(response.detail);
           // Realiza cualquier otra acción necesaria, como mostrar un mensaje de error al usuario, etc.
         } else {
@@ -67,16 +82,15 @@ if (userString) {
           this.router.navigate(['login']);
         }
       },
-      error => {
+      (error) => {
         console.error(error);
-        this.msgService.add({ 
+        this.msgService.add({
           severity: 'error',
           summary: 'Error',
-          detail: 'Ocurrió un error al cerrar sesión. Consulta la consola para más detalles.',
+          detail:
+            'Ocurrió un error al cerrar sesión. Consulta la consola para más detalles.',
         });
       }
     );
   }
-    
-
 }
