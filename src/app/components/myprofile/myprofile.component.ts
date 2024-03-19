@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
 import { AuthService } from 'src/app/services/auth.service';
@@ -8,45 +8,47 @@ import { ProfileService } from 'src/app/services/profile.service';
 @Component({
   selector: 'app-myprofile',
   templateUrl: './myprofile.component.html',
-  styleUrls: ['./myprofile.component.css']
+  styleUrls: ['./myprofile.component.css'],
 })
-
 export class MyprofileComponent implements OnInit {
-
-  user: any= {
-    password: "",
+  user: any = {
+    password: '',
     is_superuser: false,
-    username: "",
-    first_name: "",
-    last_name: "",
-    email: "",
+    username: '',
+    name: '',
+    last_name: '',
+    email: '',
     s_staff: false,
     is_active: false,
     image: null,
     age: null,
-    descripcion: "",
-    numero_celular: "",
+    descripcion: '',
+    numero_celular: '',
     groups: [],
-    user_permissions: []
-};
+    user_permissions: [],
+  };
   editProfileForm: FormGroup;
   editingProfile = false;
-
+  selectedFile: File | null = null;
+  @ViewChild('fileInput') fileInput!: ElementRef;
   constructor(
-    private fb: FormBuilder ,
+    private fb: FormBuilder,
     private authService: AuthService,
     private profileService: ProfileService,
     private messageService: MessageService
   ) {
     this.editProfileForm = this.fb.group({
-    username: [this.user ? this.user.username : '', Validators.required],
-    email: [this.user ? this.user.email : '', [Validators.required, Validators.email]],
-    first_name: [this.user ? this.user.first_name : ''],
-    last_name: [this.user ? this.user.last_name : ''],
-    image: [this.user ? this.user.image : ''],
-    numero_celular: [this.user ? this.user.numero_celular : ''],
-  });
-}
+      username: [this.user ? this.user.username : '', Validators.required],
+      email: [
+        this.user ? this.user.email : '',
+        [Validators.required, Validators.email],
+      ],
+      name: [this.user ? this.user.name : ''],
+      last_name: [this.user ? this.user.last_name : ''],
+      image: [this.user ? this.user.image : ''],
+      numero_celular: [this.user ? this.user.numero_celular : ''],
+    });
+  }
 
   ngOnInit(): void {
     this.getUserProfile();
@@ -54,22 +56,20 @@ export class MyprofileComponent implements OnInit {
   }
 
   getUserProfile(): void {
-    debugger;
     const userinfoString: string | null = localStorage.getItem('user');
-    const UserInServer: string | null =''
+    const UserInServer: string | null = '';
     if (userinfoString) {
       const userinfo: any = JSON.parse(userinfoString); // Convertir la cadena JSON a un objeto JavaScript
 
       if (userinfo && userinfo.id) {
         const userId: string = userinfo.id; // Obtener el ID del usuario
         // Ahora userId contiene el ID del usuario que puedes usar para hacer la solicitud al servicio
-        
+
         this.profileService.getUserProfile(userId).subscribe(
           (data: any) => {
             this.user = data;
             debugger;
             if (this.user.image) {
-              debugger;
               this.user.image = this.user.image.replace(
                 'http://127.0.0.1:3000',
                 'https://xf0hbthg-3000.brs.devtunnels.ms'
@@ -77,7 +77,7 @@ export class MyprofileComponent implements OnInit {
             } else {
               this.user.image = 'https://example.com/default-profile-image.jpg';
             }
-           
+
             console.log('URL:', this.user.image);
           },
           (error: any) => {
@@ -100,7 +100,7 @@ export class MyprofileComponent implements OnInit {
     this.editProfileForm = this.fb.group({
       username: [this.user.username, Validators.required],
       email: [this.user.email, [Validators.required, Validators.email]],
-      first_name: [this.user.first_name],
+      name: [this.user.name],
       last_name: [this.user.last_name],
       image: [this.user.image],
       numero_celular: [this.user.numero_celular],
@@ -115,7 +115,7 @@ export class MyprofileComponent implements OnInit {
     this.editProfileForm.patchValue({
       username: this.user.username,
       email: this.user.email,
-      first_name: this.user.first_name,
+      name: this.user.name,
       last_name: this.user.last_name,
       image: this.user.image,
       numero_celular: this.user.numero_celular,
@@ -125,19 +125,116 @@ export class MyprofileComponent implements OnInit {
 
   cancelEditingProfile(): void {
     this.editingProfile = false;
+    this.editProfileForm.reset();
     // Aquí podrías limpiar el formulario de edición si lo necesitas
   }
+  onFileSelected(event: any): void {
+    if (event.target.files.length > 0) {
+      const file = event.target.files[0];
+      this.selectedFile = file;
+    }
+  }
 
-  saveProfileChanges(): void {
-    this.profileService
-      .updateUserProfile(this.user.id, this.editProfileForm.value)
-      .subscribe(
-        (response: any) => {
+  get_FormData():FormData {
+    const formData = new FormData();
+
+    const file = this.fileInput.nativeElement.files[0];
+    if (file) {
+      formData.append('image', file);
+    }
+
+    const username = this.editProfileForm.value.username;
+    if (username !== this.user.username) {
+      formData.append('username', username);
+    }
+
+    const email = this.editProfileForm.value.email;
+    if (email && email !== this.user.email) {
+      formData.append('email', email);
+    }
+
+    const name = this.editProfileForm.value.name;
+    if (name && name !== this.user.name) {
+      formData.append('name', name);
+    }
+
+    const last_name = this.editProfileForm.value.last_name;
+    if (last_name && last_name !== this.user.last_name) {
+      formData.append('last_name', last_name);
+    }
+
+    const numero_celular = this.editProfileForm.value.numero_celular;
+    if (numero_celular && numero_celular !== this.user.numero_celular) {
+      formData.append('numero_celular', numero_celular);
+    }
+    return formData
+  }
+  async uploadMichiPhoto() {
+    const API_URL_UPLOAD2 = 'https://xf0hbthg-3000.brs.devtunnels.ms/api/v1/users/1/';
+    const token = localStorage.getItem('Token');
+    debugger;
+    const file = this.fileInput.nativeElement.files[0];
+    const formData = this.get_FormData();
+    const res = await fetch(API_URL_UPLOAD2, {
+      method: 'PUT',
+      headers: {
+        Authorization: `Token ${token}`,
+      },
+      body: formData,
+    });
+
+    const data = await res.json();
+
+    if (res.status == 200) {
+      console.log('Foto subida :)');
+      this.editingProfile = false; // Finalizar la edición del perfil después de guardar los cambios
+      this.messageService.add({
+        severity: 'success',
+        summary: 'Success',
+        detail: 'Perfil actualizado exitosamente',
+      });
+      this.getUserProfile(); // Actualizar la información del perfil después de guardar los cambios
+      return;
+    } else {
+      console.error('Error al subir la imagen:', data);
+    }
+  }
+
+  async saveProfileChanges(): Promise<void> {
+    // Obtener el FormData con los datos del formulario
+    const formData = this.get_FormData();
+  
+    try {
+      // Llamar a updateUserProfile con el id del usuario y el FormData
+      this.profileService.updateUserProfile(this.user.id, formData).subscribe(
+        (response) => {
+          debugger
+          console.log('Respuesta exitosa:', response);
+          console.log('Perfil actualizado exitosamente');
           this.editingProfile = false; // Finalizar la edición del perfil después de guardar los cambios
+          this.messageService.add({
+            severity: 'success',
+            summary: 'Success',
+            detail: 'Perfil actualizado exitosamente',
+          });
+          this.getUserProfile(); // Actualizar la información del perfil después de guardar los cambios
         },
-        (error: any) => {
-          console.log('Error al guardar los cambios en el perfil:', error);
+        (error) => {
+          console.error('Error al guardar los cambios en el perfil:', error);
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Error',
+            detail: 'Ocurrió un error al guardar los cambios en el perfil',
+          });
         }
       );
+    } catch (error) {
+      console.error('Error al guardar los cambios en el perfil:', error);
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Error',
+        detail: 'Ocurrió un error al guardar los cambios en el perfil',
+      });
+    }
   }
 }

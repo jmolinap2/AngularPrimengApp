@@ -47,7 +47,6 @@ this.username = localStorage.getItem('username') ?? '';
       .subscribe(
         (data) => {
           this.profesionales = data;
-          debugger;
           // Itera sobre los datos y modifica las URLs de las imágenes si es necesario
           this.profesionales.forEach((profesional) => {
             if (profesional.user_image) {
@@ -69,7 +68,9 @@ this.username = localStorage.getItem('username') ?? '';
   logOut() {
     this.authService.logoutUser().subscribe(
       (response) => {
+        debugger
         if (
+          
           response &&
           response.detail &&
           response.detail.includes('No se encontró el token')

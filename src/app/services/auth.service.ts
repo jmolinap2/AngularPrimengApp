@@ -1,5 +1,6 @@
 //src\app\services\auth.service.ts
-import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+
+import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { User } from '../interfaces/auth';
 import { Observable, of, throwError } from 'rxjs';
@@ -8,13 +9,14 @@ import { BehaviorSubject} from 'rxjs';
 import { LoadingService } from './loading.service';
 
 
+
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
   private baseUrl = 'https://xf0hbthg-3000.brs.devtunnels.ms';
-
+  
   constructor(
     private http: HttpClient,
     private loadingService: LoadingService
@@ -22,43 +24,77 @@ export class AuthService {
 
   loginUser(credentials: { username: string, password: string }): Observable<any> {
     this.loadingService.setLoading(true); // Activar animación de carga
-    let headers = new HttpHeaders();
-    headers = headers.set('Content-Type', 'application/json');
+
+    const headers = new HttpHeaders().set('Content-Type', 'application/json');
     console.log('Datos a enviar:', credentials);
-    return this.http.post<any>(`${this.baseUrl}/login/`, credentials).pipe(
-      tap((response) => {
-          debugger
-          console.log('Datos recibidos del login:', JSON.stringify(response));
-          if (response && response.user && response.user.token) {
-            localStorage.setItem('Token', response.user.token);
-            localStorage.setItem('username', credentials.username);
-            localStorage.setItem('user', JSON.stringify(response.user));
-          } else if (response && response.detail === "Credenciales inválidas.") {
-            throw throwError("Credenciales inválidas");
-          } else {
-            throw throwError("Something went wrong");
+    
+    return this.http.post<any>(`${this.baseUrl}/login/`, credentials, { headers, withCredentials: true }).pipe(
+      tap((response: any) => {
+        
+            localStorage.clear()
+            const rep :HttpResponse<any>=response
+          console.log('Datos recibidos del login:', response);
+          console.log('Accediendo a toda la respuesta:', rep);
+
+          if (response && response.user && response.token) {
+              // Guardar el usuario y el token en el localStorage
+              debugger
+              localStorage.setItem('Token', response.token);
+              localStorage.setItem('username', credentials.username);
+              localStorage.setItem('user', JSON.stringify(response.user));
+              
+
+              const authorizationCookieValue = `Token ${response.token}`;
+              document.cookie = `Authorization=${authorizationCookieValue};`;
+              // Obtener el valor de la cookie 'sessionid' del response
+                const newSessionId = response.sessionid;
+
+                // Obtener todas las cookies existentes
+                const cookies = document.cookie.split(';');
+
+                // Iterar sobre cada cookie para encontrar la cookie 'sessionid'
+                cookies.forEach(cookie => {
+                    const [name, value] = cookie.trim().split('=');
+                    if (name === 'sessionid') {
+                        // Si es la cookie 'sessionid', sobrescribir su valor con el nuevo sessionid
+                        document.cookie = `${name}=${newSessionId}; path=/`;
+                    }
+                });
+              // Guardar las cookies en localStorage
+              localStorage.setItem('cookies', JSON.stringify(cookies));
+           this.printCookies()   
           }
-        }),
+      }),
+      catchError(error => {
+          console.error('Error en login:', error);
+          throw error;
+      }),
       finalize(() => {
         this.loadingService.setLoading(false); // Desactivar animación de carga
       })
     );
   }
+
   logoutUser(): Observable<any> {
+    let cooks = this.printCookies() 
     const token = localStorage.getItem('Token');
-    this.loadingService.setLoading(true);
-  
-    // Verifica si el token existe en el Local Storage
+    
     if (!token) {
-      return of({ detail: 'No se encontró el token en el Local Storage.' }); // Retorna una respuesta observable indicando la ausencia de token
+      return of({ detail: 'No se encontró el token en el Local Storage.' });
     }
-  
-    let headers = new HttpHeaders();
-    headers = headers.set('Authorization', `Token ${token}`); // Establece el encabezado de autorización
-  
-    console.log('Token a enviar:', token);
-  
-    return this.http.post<any>(`${this.baseUrl}/logout/`, null, { headers: headers }).pipe(
+    debugger
+    let cook = document.cookie
+    const headers = new HttpHeaders({
+      'Cookie': cooks, // Agregar todas las cookies
+      'Authorization': `Token ${token}`,
+    });
+
+    const options = {
+      headers: headers,
+      responseType: 'text' as 'json' // Indica que la respuesta esperada es texto
+    };
+
+    return this.http.post(`${this.baseUrl}/logout/`, '', options).pipe(
       finalize(() => {
         this.loadingService.setLoading(false); // Desactivar animación de carga
       })
@@ -66,8 +102,13 @@ export class AuthService {
   }
 
   registerUser(userDetails: User): Observable<any> {
+    const token = localStorage.getItem('Token');
     let headers = new HttpHeaders();
     headers = headers.set('Content-Type', 'application/json');
+    if (token) {
+      headers = headers.set('Authorization', `Token ${token}`);
+    }
+    debugger
     this.loadingService.setLoading(true); // Activar animación de carga
     console.log('Datos a enviar:', JSON.stringify(userDetails));
     
@@ -78,11 +119,28 @@ export class AuthService {
     );
   }
 
-  getUserByEmail(email: string): Observable<User[]> {
-    let headers = new HttpHeaders();
-    headers = headers.set('Content-Type', 'application/json');
-    return this.http.get<User[]>(`${this.baseUrl}/api/v1/users?email=${email}`);
+  
+  
+  private printCookies (){
+    const cookiesConsol = localStorage.getItem('cookies');
+      let formattedCookies = '';
+      let consol = '';
+
+      if (cookiesConsol) {
+        const cookiesArray = JSON.parse(cookiesConsol) as string[]; // Convertir la cadena JSON en un array de cadenas
+        debugger
+        cookiesArray.forEach(cookie => {
+          const [name, value] = cookie.split('=');
+          const trimmedName = name.trim(); // Eliminar los espacios en blanco alrededor del nombre
+          if (trimmedName === 'sessionid' || trimmedName === 'csrftoken') {
+            formattedCookies += `${trimmedName}=${value}; `;
+          }
+        });
+
+        formattedCookies = formattedCookies.trim().slice(0, -1);
+      }
+      debugger
+    console.log("'Cookie': '" + formattedCookies + "'");
+    return formattedCookies
   }
-
-
 }

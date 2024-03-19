@@ -35,7 +35,7 @@ export class LoginComponent {
     this.authService.loginUser({ username: usernameValue, password: passwordValue }).subscribe(
       response => {
         debugger;
-        localStorage.setItem('Token', response.user.token);
+        localStorage.setItem('Token', response.token);
         this.router.navigate(['/home']);
       },(error) => {
         debugger;
