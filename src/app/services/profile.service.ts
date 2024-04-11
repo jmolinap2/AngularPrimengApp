@@ -20,7 +20,6 @@ export class ProfileService {
     
     // Crear headers con las cookies
     let headers = new HttpHeaders();
-    debugger
     headers = headers.set('Content-Type', 'application/json');
     if (token) {
       headers = headers.set('Authorization', `Token ${token}`);
@@ -56,30 +55,5 @@ export class ProfileService {
     );
   }
 
-  private buildFormData(userData: any): FormData {
-    const formData = new FormData();
-    console.log('Datos de userData:', userData);
-    
-    for (const key in userData) {
-      const value = userData[key];
-      try {
-        if (value instanceof File) {
-          debugger
-          formData.append(key, value, value.name);
-          formData.get(key)
-        } else {
-          formData.append(key, String(value));
-          formData.get(key)
-        }
-      } catch (error) {
-        console.error(`Error al guardar el dato '${key}':`, error);
-        // Puedes mostrar un mensaje al usuario o registrar el error en un archivo de log.
-      }
-      console.log('Dato almasenado: ',formData.get(key))
-    }
-    
-    debugger
-    return formData;
-  }
 
 }

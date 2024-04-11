@@ -28,6 +28,7 @@ this.username = localStorage.getItem('username') ?? '';
 
     const userString = localStorage.getItem('user');
     if (userString) {
+      debugger
       const user = JSON.parse(userString);
       if (user && user.image) {
         user.image = 'https://xf0hbthg-3000.brs.devtunnels.ms' + user.image;

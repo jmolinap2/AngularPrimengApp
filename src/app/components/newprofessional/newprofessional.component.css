@@ -1,0 +1,26 @@
+/* Estilos personalizados para la pantalla de nuevo profesional */
+.register-header {
+    background-color: #5e4fb4; /* Color de fondo para la cabecera */
+    color: #fff; /* Color de texto para la cabecera */
+    padding: 50px 0; /* Espaciado interno */
+  }
+  
+  .register-content {
+    padding: 50px 0; /* Espaciado interno */
+  }
+  
+  .benefits-section {
+    margin-bottom: 30px; /* Margen inferior */
+  }
+  
+  .terms-form {
+    background-color: #f8f9fa; /* Color de fondo para el formulario */
+    padding: 20px; /* Espaciado interno */
+    border-radius: 5px; /* Bordes redondeados */
+  }
+  
+  .btn-primary {
+    background-color: #ff6f61; /* Color de fondo para el botón primario */
+    border-color: #ff6f61; /* Color del borde */
+  }
+  

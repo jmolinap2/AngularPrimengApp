@@ -27,6 +27,7 @@ import { CalendarModule } from 'primeng/calendar';
 import { DropdownModule } from 'primeng/dropdown';
 import { CommonModule, DatePipe } from '@angular/common'; // Importa DatePipe aquí
 import { SelectButtonModule } from 'primeng/selectbutton';
+import { BlogComponent } from './components/blog/blog.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import { SelectButtonModule } from 'primeng/selectbutton';
     RegisterComponent,
     HomeComponent,
     MyprofileComponent,
-    NewprofessionalComponent
+    NewprofessionalComponent,
+    BlogComponent
   ],
   imports: [
     SelectButtonModule,

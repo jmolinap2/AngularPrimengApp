@@ -1,1 +1,38 @@
-<p>newprofessional works!</p>
+<!-- Cabecera de la página -->
+<section class="register-header">
+    <div class="container">
+      <h1 class="text-center">Conviértete en un Profesional</h1>
+      <p class="lead text-center">Descubre todos los beneficios que te ofrecemos y forma parte de nuestra comunidad de profesionales.</p>
+    </div>
+  </section>
+  
+  <!-- Contenido principal de la página -->
+  <section class="register-content">
+    <div class="container">
+      <!-- Información sobre los beneficios ofrecidos -->
+      <div class="benefits-section">
+        <h2 class="text-center mb-4">Beneficios</h2>
+        <ul class="benefits-list">
+          <li><i class="fas fa-check-circle"></i> Visibilidad ante el público</li>
+          <li><i class="fas fa-check-circle"></i> Oportunidades de negocio</li>
+          <li><i class="fas fa-check-circle"></i> Acceso a herramientas exclusivas</li>
+          <li><i class="fas fa-check-circle"></i> Networking con otros profesionales</li>
+        </ul>
+      </div>
+  
+      <!-- Formulario para aceptar términos y condiciones -->
+      <div class="terms-form">
+        <h2 class="text-center mb-4">Acepta los Términos y Condiciones</h2>
+        <form [formGroup]="acceptanceForm" (ngSubmit)="submitForm()">
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" formControlName="acceptTerms" id="acceptTerms">
+            <label class="form-check-label" for="acceptTerms">
+              He leído y acepto los <a href="#">términos y condiciones</a>.
+            </label>
+          </div>
+          <button type="submit" class="btn btn-primary mt-3" [disabled]="!acceptanceForm.valid">Registrarme como Profesional</button>
+        </form>
+      </div>
+    </div>
+  </section>
+  

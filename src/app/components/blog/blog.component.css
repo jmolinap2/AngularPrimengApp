@@ -1,0 +1,28 @@
+/* Animaciones del blog */
+.animated {
+    animation-duration: 1s;
+    animation-fill-mode: both;
+  }
+  
+  /* Estilos para los títulos */
+  h1, h2 {
+    color: #333;
+  }
+  
+  /* Estilos para las secciones */
+  section {
+    margin-bottom: 20px;
+    padding: 20px;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Estilos específicos para cada sección */
+  #inicio { background-color: #fff; }
+  #ofrecemos { background-color: #f1f1f1; }
+  #beneficios { background-color: #fff; }
+  #funciona { background-color: #f1f1f1; }
+  #faq { background-color: #fff; }
+  #contacto { background-color: #f1f1f1; }
+  #mision, #vision { background-color: #fff; }

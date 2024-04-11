@@ -31,6 +31,7 @@ export class MyprofileComponent implements OnInit {
   editingProfile = false;
   selectedFile: File | null = null;
   @ViewChild('fileInput') fileInput!: ElementRef;
+  showOverlay = false; // Agregar la propiedad showOverlay 
   constructor(
     private fb: FormBuilder,
     private authService: AuthService,
@@ -128,13 +129,7 @@ export class MyprofileComponent implements OnInit {
     this.editProfileForm.reset();
     // Aquí podrías limpiar el formulario de edición si lo necesitas
   }
-  onFileSelected(event: any): void {
-    if (event.target.files.length > 0) {
-      const file = event.target.files[0];
-      this.selectedFile = file;
-    }
-  }
-
+ 
   get_FormData():FormData {
     const formData = new FormData();
 
@@ -169,37 +164,7 @@ export class MyprofileComponent implements OnInit {
     }
     return formData
   }
-  async uploadMichiPhoto() {
-    const API_URL_UPLOAD2 = 'https://xf0hbthg-3000.brs.devtunnels.ms/api/v1/users/1/';
-    const token = localStorage.getItem('Token');
-    debugger;
-    const file = this.fileInput.nativeElement.files[0];
-    const formData = this.get_FormData();
-    const res = await fetch(API_URL_UPLOAD2, {
-      method: 'PUT',
-      headers: {
-        Authorization: `Token ${token}`,
-      },
-      body: formData,
-    });
-
-    const data = await res.json();
-
-    if (res.status == 200) {
-      console.log('Foto subida :)');
-      this.editingProfile = false; // Finalizar la edición del perfil después de guardar los cambios
-      this.messageService.add({
-        severity: 'success',
-        summary: 'Success',
-        detail: 'Perfil actualizado exitosamente',
-      });
-      this.getUserProfile(); // Actualizar la información del perfil después de guardar los cambios
-      return;
-    } else {
-      console.error('Error al subir la imagen:', data);
-    }
-  }
-
+  
   async saveProfileChanges(): Promise<void> {
     // Obtener el FormData con los datos del formulario
     const formData = this.get_FormData();

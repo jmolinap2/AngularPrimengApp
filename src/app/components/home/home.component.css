@@ -1,13 +1,13 @@
 /* Estilos personalizados */
 .navbar {
-    background: linear-gradient(to right, #0769ca, #E5E5BE); /* Gradiente de color de fondo */
+    background: linear-gradient(to right, #0b0a0f, #ff6f61); /* Gradiente de color de fondo para la barra de navegación */
 }
 
 .jumbotron {
-    background-image: url('https://e0.pxfuel.com/wallpapers/766/394/desktop-wallpaper-easypromos-linkedin-for-your.jpg');
+    background-image: linear-gradient(to right, #0b0a0f, #ff6f61), url('https://e0.pxfuel.com/wallpapers/766/394/desktop-wallpaper-easypromos-linkedin-for-your.jpg'); /* Gradiente de color y imagen de fondo combinados */
     background-size: cover;
     background-position: center;
-    color: #fff;
+    color: #ffffff;
     padding: 100px 0; /* Aumenta el espacio interno */
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Sombra al texto */
 }
@@ -21,8 +21,9 @@
 }
 
 .personas-section {
-    background-color: #287dd357;
-    padding: 50px 0;
+    background: linear-gradient(to right, #03010f, #ff6f61); /* Gradiente de color de fondo para la sección de profesionales */
+    padding: 70px 0;
+    color: #ffffff;
     border-top: 1px solid #fff; /* Borde superior */
     border-bottom: 1px solid #fff; /* Borde inferior */
 }
