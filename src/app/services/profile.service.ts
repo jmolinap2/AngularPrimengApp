@@ -13,7 +13,7 @@ export class ProfileService {
 
   // Método para obtener el perfil del usuario
   getUserProfile(userId: string): Observable<any> {
-    const link = `${this.baseUrl}/users/${userId}`;
+    const link = `${this.baseUrl}/users/${userId}/`;
      
     // Obtener cookies almacenadas
     const token = localStorage.getItem('Token');
