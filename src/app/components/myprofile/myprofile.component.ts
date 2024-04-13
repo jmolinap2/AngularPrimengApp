@@ -57,6 +57,7 @@ export class MyprofileComponent implements OnInit {
   }
 
   getUserProfile(): void {
+    debugger
     const userinfoString: string | null = localStorage.getItem('user');
     const UserInServer: string | null = '';
     if (userinfoString) {
@@ -67,8 +68,9 @@ export class MyprofileComponent implements OnInit {
         // Ahora userId contiene el ID del usuario que puedes usar para hacer la solicitud al servicio
 
         this.profileService.getUserProfile(userId).subscribe(
-          (data: any) => {
-            this.user = data;
+          response => {
+            
+            this.user = response;
             debugger;
             if (this.user.image) {
               this.user.image = this.user.image.replace(

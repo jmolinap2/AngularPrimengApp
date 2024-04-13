@@ -1,15 +1,12 @@
 /* Estilos personalizados */
 .navbar {
-    background: linear-gradient(to right, #0b0a0f, #ff6f61); /* Gradiente de color de fondo para la barra de navegación */
+    background: linear-gradient(to right, #e50914, #b81c24); /* Gradiente de color similar a Netflix */
 }
 
 .jumbotron {
-    background-image: linear-gradient(to right, #0b0a0f, #ff6f61), url('https://e0.pxfuel.com/wallpapers/766/394/desktop-wallpaper-easypromos-linkedin-for-your.jpg'); /* Gradiente de color y imagen de fondo combinados */
-    background-size: cover;
-    background-position: center;
+    background-image: linear-gradient(to bottom, #221f1f, #090808); /* Gradiente de color similar a Netflix */
     color: #ffffff;
     padding: 100px 0; /* Aumenta el espacio interno */
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Sombra al texto */
 }
 
 .jumbotron h1 {
@@ -21,7 +18,7 @@
 }
 
 .personas-section {
-    background: linear-gradient(to right, #03010f, #ff6f61); /* Gradiente de color de fondo para la sección de profesionales */
+    background: linear-gradient(to right, #221f1f, #090808); /* Gradiente de color similar a Netflix */
     padding: 70px 0;
     color: #ffffff;
     border-top: 1px solid #fff; /* Borde superior */

@@ -7,7 +7,7 @@ import { catchError, switchMap, tap } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class ProfileService {
-  private baseUrl = 'https://xf0hbthg-3000.brs.devtunnels.ms/api/v1'; // URL base para las solicitudes
+  private baseUrl = 'http://127.0.0.1:3000/api/v1'; // URL base para las solicitudes
 
   constructor(private http: HttpClient) { }
 
