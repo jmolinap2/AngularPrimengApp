@@ -31,7 +31,7 @@ this.username = localStorage.getItem('username') ?? '';
       debugger
       const user = JSON.parse(userString);
       if (user && user.image) {
-        user.image = 'https://dczslx4n-3000.use2.devtunnels.ms/' + user.image;
+        user.image = 'https://dczslx4n-3000.use2.devtunnels.ms' + user.image;
       } else {
         user.image = 'https://example.com/default-profile-image.jpg';
       }
@@ -53,7 +53,7 @@ this.username = localStorage.getItem('username') ?? '';
             if (profesional.user_image) {
               profesional.user_image = profesional.user_image.replace(
                 'http://localhost:3000',
-                'https://dczslx4n-3000.use2.devtunnels.ms/'
+                'https://dczslx4n-3000.use2.devtunnels.ms'
               );
               
               console.log('profesional.image: ', profesional.image);
