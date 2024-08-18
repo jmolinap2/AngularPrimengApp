@@ -36,12 +36,14 @@ export class AuthService {
           console.log('Datos recibidos del login:', response);
           console.log('Accediendo a toda la respuesta:', rep);
 
-          if (response && response.user && response.token) {
-              // Guardar el usuario y el token en el localStorage
-              debugger
-              localStorage.setItem('Token', response.token);
-              localStorage.setItem('username', credentials.username);
-              localStorage.setItem('user', JSON.stringify(response.user));
+                if (response && response.user && response.token) {
+                    // Guardar el usuario y el token en el localStorage
+                    debugger
+                    response.user = this.adjustImageUrl(response.user);
+
+                  localStorage.setItem('Token', response.token);
+                  localStorage.setItem('username', credentials.username);
+                  localStorage.setItem('user', JSON.stringify(response.user));
               
 
               const authorizationCookieValue = `Token ${response.token}`;
@@ -143,4 +145,19 @@ export class AuthService {
     console.log("'Cookie': '" + formattedCookies + "'");
     return formattedCookies
   }
+
+  public adjustImageUrl(user: any): any {
+    if (user && user.image) {
+        if (user.image.includes('http://127.0.0.1:3000')) {
+            user.image = user.image.replace(
+                'http://127.0.0.1:3000',
+                'https://dczslx4n-3000.use2.devtunnels.ms'
+            );
+        } else if (!user.image.includes('https://dczslx4n-3000.use2.devtunnels.ms') &&
+                   !user.image.includes('http://127.0.0.1:3000')) {
+            user.image = `https://dczslx4n-3000.use2.devtunnels.ms${user.image}`;
+        }
+    }
+    return user;
+}
 }
