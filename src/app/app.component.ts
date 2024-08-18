@@ -1,4 +1,4 @@
-import { Component, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, HostListener } from '@angular/core';
 import { LoadingService } from './services/loading.service';
 import { Subscription } from 'rxjs';
 import { Router, NavigationStart, NavigationEnd, NavigationCancel, NavigationError } from '@angular/router';
@@ -32,5 +32,22 @@ export class AppComponent implements OnDestroy {
   ngOnDestroy(): void {
     // Cancelar la suscripción al servicio de carga al destruir el componente
     this.loadingSubscription.unsubscribe();
+  }
+
+  @HostListener('window:scroll', ['$event'])
+onWindowScroll() {
+    const navbar = document.getElementById('navbar');
+    if (navbar) {  // Verifica que navbar no sea null
+        if (window.pageYOffset > 100) {
+            navbar.classList.add('bg-dark');
+        } else {
+            navbar.classList.remove('bg-dark');
+        }
+    }
+}
+
+
+  getStars(rating: number): Array<number> {
+    return Array(rating).fill(0);
   }
 }
