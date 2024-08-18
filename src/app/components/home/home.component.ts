@@ -30,8 +30,11 @@ this.username = localStorage.getItem('username') ?? '';
     if (userString) {
       debugger
       const user = JSON.parse(userString);
-      if (user && user.image) {
-        user.image = 'https://dczslx4n-3000.use2.devtunnels.ms' + user.image;
+      if (user.image) {
+        user.image = user.image.replace(
+          'http://127.0.0.1:3000',
+          'https://dczslx4n-3000.use2.devtunnels.ms'
+        );
       } else {
         user.image = 'https://example.com/default-profile-image.jpg';
       }

@@ -71,6 +71,7 @@ export class MyprofileComponent implements OnInit {
           response => {
             
             this.user = response;
+            
             debugger;
             if (this.user.image) {
               this.user.image = this.user.image.replace(
@@ -80,7 +81,7 @@ export class MyprofileComponent implements OnInit {
             } else {
               this.user.image = 'https://example.com/default-profile-image.jpg';
             }
-
+            localStorage.setItem('user', JSON.stringify(this.user));
             console.log('URL:', this.user.image);
           },
           (error: any) => {
