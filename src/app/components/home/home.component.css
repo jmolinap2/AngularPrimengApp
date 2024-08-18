@@ -32,3 +32,21 @@
     width: 1.5rem; /* ajusta este valor según sea necesario */
     height: auto; /* para mantener la proporción de la imagen */
 }
+
+.parallax {
+    height: 70vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-attachment: fixed;
+    color: white;
+}
+
+.hover-zoom:hover {
+    transform: scale(1.05);
+    transition: transform 0.5s ease;
+}
+
+.social-media a {
+    font-size: 1.2rem;
+}
