@@ -75,7 +75,7 @@ export class MyprofileComponent implements OnInit {
             if (this.user.image) {
               this.user.image = this.user.image.replace(
                 'http://127.0.0.1:3000',
-                'https://xf0hbthg-3000.brs.devtunnels.ms'
+                'https://dczslx4n-3000.use2.devtunnels.ms/'
               );
             } else {
               this.user.image = 'https://example.com/default-profile-image.jpg';

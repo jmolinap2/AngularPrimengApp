@@ -15,7 +15,7 @@ import { LoadingService } from './loading.service';
 })
 export class AuthService {
 
-  private baseUrl = 'https://xf0hbthg-3000.brs.devtunnels.ms';
+  private baseUrl = 'https://dczslx4n-3000.use2.devtunnels.ms/';
   
   constructor(
     private http: HttpClient,
