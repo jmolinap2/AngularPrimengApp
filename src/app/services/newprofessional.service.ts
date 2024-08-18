@@ -7,7 +7,7 @@ import { catchError, switchMap, tap } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class ProfessionalService {
-  private baseUrl = 'https://dczslx4n-3000.use2.devtunnels.ms//api/v1'; // URL base para las solicitudes
+  private baseUrl = 'https://dczslx4n-3000.use2.devtunnels.ms/api/v1'; // URL base para las solicitudes
 
   constructor(private http: HttpClient) { }
 

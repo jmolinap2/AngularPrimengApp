@@ -43,7 +43,7 @@ this.username = localStorage.getItem('username') ?? '';
   getProfesionales() {
     this.http
       .get<any[]>(
-        'https://dczslx4n-3000.use2.devtunnels.ms//api/v1/profesionales/'
+        'https://dczslx4n-3000.use2.devtunnels.ms/api/v1/profesionales/'
       )
       .subscribe(
         (data) => {

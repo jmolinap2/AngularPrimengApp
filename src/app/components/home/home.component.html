@@ -1,6 +1,5 @@
-
 <!-- Navbar -->
-<nav class="navbar navbar-light bg-light fixed-top">
+<nav class="navbar navbar-dark bg-dark fixed-top">
     <div class="container-fluid">
         <a class="navbar-brand" href="#">Tu Aplicación</a>
         
@@ -8,7 +7,7 @@
             aria-controls="offcanvasNavbar">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+        <div class="offcanvas offcanvas-end bg-dark text-light" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
             <div class="offcanvas-header">
                 <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Menú</h5>
                 <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"
@@ -19,57 +18,55 @@
                     <li class="nav-item">
                         <div class="topbar-right">
                             <a leavetoclass="hidden" leaveactiveclass="fadeout" class="p-element profile-link">
-                                <img src="{{ user.image }}" alt="Imagen de perfil" class="profile-image" style="width: 4.5rem;" routerLink="/myprofile">
+                                <img src="{{ user.image }}" alt="Imagen de perfil" class="profile-image rounded-circle" style="width: 4.5rem;" routerLink="/myprofile">
                             </a>
                         </div>
-                        <a class="nav-link" routerLink="/myprofile">Mi Perfil</a>
+                        <a class="nav-link" routerLink="/myprofile"><i class="fas fa-user-circle"></i> Mi Perfil</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" routerLink="/newprofessional">Sé uno de nosotros</a>
+                        <a class="nav-link" routerLink="/newprofessional"><i class="fas fa-user-plus"></i> Sé uno de nosotros</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link logout-link" (click)="logOut()">Cerrar Sesión</a>
+                        <a class="nav-link logout-link" (click)="logOut()"><i class="fas fa-sign-out-alt"></i> Cerrar Sesión</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" routerLink="/blog">Blog</a>
+                        <a class="nav-link" routerLink="/blog"><i class="fas fa-blog"></i> Blog</a>
                     </li>
                 </ul>
                 <form class="d-flex mt-3">
                     <input class="form-control me-2" type="search" placeholder="Buscar" aria-label="Search">
-                    <button class="btn btn-outline-success" type="submit">Buscar</button>
+                    <button class="btn btn-outline-success" type="submit"><i class="fas fa-search"></i> Buscar</button>
                 </form>
             </div>
         </div>
     </div>
 </nav>
 
-    <!-- Jumbotron -->
-    <div class="jumbotron text-center">
-        <h1 class="display-4">¡Bienvenido a Tu Aplicación!</h1>
-        <p class="lead">Hola, {{ username }}!</p>
-        <hr class="my-4">
-        <!-- Agrega un botón de llamada a la acción si es necesario -->
-    </div>
+<!-- Jumbotron -->
+<div class="jumbotron text-center text-light" style="background: url('/assets/banner.jpg') no-repeat center center; background-size: cover;">
+    <h1 class="display-4">¡Bienvenido a Tu Aplicación!</h1>
+    <p class="lead">Hola, {{ username }}!</p>
+    <hr class="my-4">
+    <a class="btn btn-primary btn-lg" href="#" role="button">Explora nuestros servicios</a>
+</div>
 
-    <!-- Sección de profesionales -->
-<div class="container personas-section">
+<!-- Sección de profesionales -->
+<div class="container personas-section mt-5">
     <h2 class="text-center mb-4">Profesionales disponibles</h2>
     <div class="row">
         <!-- Iterar sobre los profesionales y mostrar cada uno en una tarjeta -->
         <div class="col-md-4 mb-4" *ngFor="let profesional of profesionales">
-            <div class="card border h-100">
-                <!-- Mostrar la imagen del profesional -->
-                <h5 class="card-title text-center">{{ profesional.username }}</h5>
-                <img *ngIf="profesional.user_image" [src]="profesional.user_image" class="card-img-top rounded mx-auto d-block"
-                    alt="Imagen del profesional" style="height: 250px; object-fit: contain;">
-                <div class="card-body">
-                    <!-- Mostrar el nombre del profesional -->
-                    <h5 class="card-title">{{ profesional.biografia }}</h5>
-                    <!-- Mostrar la biografía del profesional -->
+            <div class="card border-0 shadow-sm h-100">
+                <h5 class="card-title text-center mt-3">{{ profesional.username }}</h5>
+                <img *ngIf="profesional.user_image" [src]="profesional.user_image" class="card-img-top rounded-circle mx-auto d-block"
+                    alt="Imagen del profesional" style="width: 150px; height: 150px; object-fit: cover;">
+                <div class="card-body text-center">
                     <p class="card-text">{{ profesional.biografia }}</p>
+                </div>
+                <div class="card-footer text-center">
+                    <a href="#" class="btn btn-outline-primary">Ver Perfil</a>
                 </div>
             </div>
         </div>
     </div>
 </div>
-
