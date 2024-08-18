@@ -34,17 +34,18 @@ export class AppComponent implements OnDestroy {
     this.loadingSubscription.unsubscribe();
   }
 
-  @HostListener('window:scroll', ['$event'])
-onWindowScroll() {
-    const navbar = document.getElementById('navbar');
-    if (navbar) {  // Verifica que navbar no sea null
-        if (window.pageYOffset > 100) {
-            navbar.classList.add('bg-dark');
-        } else {
-            navbar.classList.remove('bg-dark');
-        }
+    @HostListener('window:scroll', ['$event'])
+    onWindowScroll() {
+      const navbar = document.getElementById('navbar');
+      if (navbar) {
+          if (window.pageYOffset > 100) {
+              navbar.classList.add('bg-dark');
+          } else {
+              navbar.classList.remove('bg-dark');
+          }
+      }
     }
-}
+
 
 
   getStars(rating: number): Array<number> {

@@ -1,6 +1,9 @@
 /* You can add global styles to this file, and also import other style files */
 /* src\styles.css */
 /* Estilos para la animación de carga */
+#navbar {
+  transition: background-color 0.3s ease;
+}
 .loader-overlay {
     position: fixed;
     top: 0;
