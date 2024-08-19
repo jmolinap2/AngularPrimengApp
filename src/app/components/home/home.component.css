@@ -1,52 +1,56 @@
-/* Estilos personalizados */
+body {
+    background-color: #0f0c29; /* Fondo oscuro */
+    color: #ffffff;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-image: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
 .navbar {
-    background: linear-gradient(to right, #e50914, #b81c24); /* Gradiente de color similar a Netflix */
+    background-color: #240046; /* Morado oscuro */
+    background-image: linear-gradient(315deg, #240046 0%, #b81c24 74%);
+    border-bottom: 2px solid #ff0050; /* Línea roja */
 }
 
 .jumbotron {
-    background-image: linear-gradient(to bottom, #221f1f, #090808); /* Gradiente de color similar a Netflix */
+    background: linear-gradient(to bottom, #0f0c29, #221f1f); /* Fondo jumbotron */
     color: #ffffff;
-    padding: 100px 0; /* Aumenta el espacio interno */
+    text-shadow: 2px 2px 4px #000;
+    box-shadow: inset 0 0 10px #000;
 }
 
-.jumbotron h1 {
-    font-size: 3.5rem; /* Aumenta el tamaño del título */
+.card {
+    background-color: #1a1a2e;
+    border-radius: 15px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.6);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-.jumbotron p {
-    font-size: 1.25rem; /* Aumenta el tamaño del texto */
+.card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 30px rgba(0, 0, 0, 0.7);
 }
 
-.personas-section {
-    background: linear-gradient(to right, #221f1f, #090808); /* Gradiente de color similar a Netflix */
-    padding: 70px 0;
+.button-primary {
+    background-color: #ff0050;
     color: #ffffff;
-    border-top: 1px solid #fff; /* Borde superior */
-    border-bottom: 1px solid #fff; /* Borde inferior */
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
 }
 
-.logout-link {
-    cursor: pointer; /* Cambia el cursor al hacer hover para indicar que es un enlace */
-}
-.profile-image {
-    width: 1.5rem; /* ajusta este valor según sea necesario */
-    height: auto; /* para mantener la proporción de la imagen */
+.button-primary:hover {
+    background-color: #ff2e83;
+    color: #ffffff;
 }
 
-.parallax {
-    height: 70vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-attachment: fixed;
-    color: white;
-}
-
-.hover-zoom:hover {
-    transform: scale(1.05);
-    transition: transform 0.5s ease;
+.offcanvas-header .btn-close {
+    filter: invert(1); /* Asegura que la X sea visible */
 }
 
 .social-media a {
     font-size: 1.2rem;
+    color: #ff0050;
 }

@@ -43,6 +43,9 @@ this.username = localStorage.getItem('username') ?? '';
 
     this.getProfesionales();
   }
+  getStars(rating: number): number[] {
+    return Array(rating).fill(0);
+  }
   getProfesionales() {
     this.http
       .get<any[]>(
